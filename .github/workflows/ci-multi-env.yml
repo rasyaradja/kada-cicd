@@ -44,5 +44,5 @@ jobs:
                   key: ${{ github.ref_name == 'master' && secrets.PROD_SSH_KEY || secrets.STAGING_SSH_KEY }}
                   script: |
                       cd /home/ubuntu/reactdoc/react-express-mongodb
-                      docker-compose -f docker-compose.${{ github.ref_name == 'master' && 'prod' || 'staging' }}.yml pull
-                      docker-compose -f docker-compose.${{ github.ref_name == 'master' && 'prod' || 'staging' }}.yml up -d
+                      docker compose -f docker-compose.${{ github.ref_name == 'master' && 'prod' || 'staging' }}.yml pull
+                      docker compose -f docker-compose.${{ github.ref_name == 'master' && 'prod' || 'staging' }}.yml up -d
