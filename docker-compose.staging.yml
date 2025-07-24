@@ -1,0 +1,10 @@
+version: '3'
+services:
+    backend:
+        image: rasyaradja/backend:staging
+        ports:
+            - '5001:5000'
+    frontend:
+        image: rasyaradja/frontend:staging
+        ports:
+            - '3001:80'
