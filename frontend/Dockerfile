@@ -26,10 +26,7 @@ EXPOSE 3000
 CMD ["npm", "start"]
 
 FROM development as dev-envs
-RUN <<EOF
-apt-get update
-apt-get install -y --no-install-recommends git
-EOF
+RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
 
 RUN <<EOF
 useradd -s /bin/bash -m vscode
@@ -38,4 +35,8 @@ usermod -aG docker vscode
 EOF
 # install Docker tools (cli, buildx, compose)
 COPY --from=gloursdocker/docker / /
+RUN apt-get update && apt-get install -y curl
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+  CMD curl --fail http://localhost:3000 || exit 1
 CMD [ "npm", "start" ]
